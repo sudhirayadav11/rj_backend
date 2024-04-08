@@ -3,7 +3,7 @@ const Product = require("../Models/ProductModel");
 // create products
 const addProduct = async (req, res) => {
   try {
-    const { name, price, category, desc, image, brand ,color} = req.body;
+    const { name, price, category, desc, image, brand ,colors,fabric,sizes} = req.body;
     const isExists = await Product.findOne({ name });
     if (isExists)
       return res.status(400).json({ message: "Product already exists" });
@@ -14,8 +14,10 @@ const addProduct = async (req, res) => {
       category,
       desc,
       brand,
+      fabric,
+      sizes,
       image,
-      color
+      colors
     });
 
     return res
@@ -24,7 +26,7 @@ const addProduct = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
+};      
 
 // get all Products
 const getProducts = async (req, res) => {
@@ -72,16 +74,16 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+// edit product 
 const editProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, price, category, description, image, brand } = req.body;
+    const { name, price, category, description, image, brand,colors ,fabric,sizes} = req.body;
     // Find the product by ID
     let product = await Product.findById(id);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
-
     // Update the product fields with the new data
     product.name = name;
     product.price = price;
@@ -89,6 +91,10 @@ const editProduct = async (req, res) => {
     product.description = description;
     product.image = image;
     product.brand = brand;
+    product.fabric = fabric;
+    product.colors =colors ;
+    product.sizes =sizes ;
+   
 
     // Save the updated product
     await product.save();

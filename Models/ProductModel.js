@@ -15,15 +15,24 @@ const productSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  color: {
-    type: String,
-    required: [true, "Please enter product color"],
+  colors: {
+    type: [String],
+    required: [true, "Please enter at least one product color"],
     trim: true,
-    default: "black",
+    default: ["black"],
   },
   brand: {
     type: String,
     required: [true, "Please enter product brand"],
+    trim: true,
+  },
+  fabric: {
+    type: String,
+    trim: true,
+    required: [true, "Please enter fabric brand"],
+  },
+  sizes: {
+    type: [String],
     trim: true,
   },
 
@@ -33,9 +42,8 @@ const productSchema = mongoose.Schema({
   },
 
   inStock: { type: Boolean, default: true },
- 
+
   image: String,
- 
 
   createdAt: {
     type: Date,
