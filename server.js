@@ -60,6 +60,10 @@ app.use("/api/v1", categoryRouter);
 const wishlistRouter = require("./Routes/WishlistRoutes");
 app.use("/api/v1", wishlistRouter);
 
+// order routes defined
+const orderRouter = require("./Routes/orderRoute");
+app.use("/api/v1", orderRouter);
+
 
 
 
