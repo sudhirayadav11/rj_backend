@@ -5,9 +5,9 @@ const Product = require("../Models/ProductModel");
 // create new Order
 const newOrder = asyncHandler(async (req, res, next) => {
   const {
-    shippinInfo,
+    shippingInfo,
     orderItems,
-   paymentInfo,
+    paymentInfo,
     taxPrice,
     itemsPrice,
     shippingPrice,
@@ -15,9 +15,9 @@ const newOrder = asyncHandler(async (req, res, next) => {
   } = req.body;
 
   const order = await Order.create({
-    shippinInfo,
+    shippingInfo,
     orderItems,
-   paymentInfo,
+    paymentInfo,
     taxPrice,
     itemsPrice,
     shippingPrice,
@@ -28,9 +28,10 @@ const newOrder = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     order,
-    user: req.user.id
+    user: req.user.id,
   });
 });
+
 
 
 const getSingleOrder = asyncHandler(async (req, res, next) => {

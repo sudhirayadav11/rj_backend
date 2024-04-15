@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const orderSchema = mongoose.Schema({
-  shippinInfo: {
+  shippingInfo: {
     address: {
       type: String,
       required: true,
@@ -10,19 +10,15 @@ const orderSchema = mongoose.Schema({
       type: String,
       required: true,
     },
-    state: {
-      type: String,
-      required: true,
-    },
     country: {
       type: String,
       required: true,
     },
-    pinCode: {
+    pincode: {
       type: Number,
       required: true,
     },
-    phoneNo: {
+    phone: {
       type: Number,
       required: true,
     },
@@ -98,7 +94,7 @@ const orderSchema = mongoose.Schema({
   orderStatus: {
     type: String,
     required: true,
-    default: "processing",
+    default: "Pending order",
   },
   deliveredAt: Date,
   createdAt: {
