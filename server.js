@@ -4,6 +4,8 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 const cors = require("cors");
+const { default: axios } = require("axios");
+
 const PORT = process.env.PORT || 5000;
 const stripe = require("stripe")(
   "sk_test_51P0M0uA9t10f3qsTRjRlUvSsoI30qIXNY8EOTmULUvRkVsviTjGQTepfKjhXsSwiwxtA39tfowqTRop7lWMCHDW300utiaxmBC"
@@ -68,7 +70,7 @@ app.use("/api/v1", orderRouter);
 
 
 
-// Payments api routes
+//  stripe Payments api routes
 app.post("/api/v1/checkout", async (req, res) => {
   try {
     const productsData = JSON.parse(req.body.body);
@@ -99,6 +101,29 @@ app.post("/api/v1/checkout", async (req, res) => {
   }
 });
 
+
+
+
+// khalti  payemt route
+// khalti payment
+app.use("/initiate-payment", async (req, res) => {
+  try {
+    const payload = req.body;
+    const khaltiResponse = await axios.post(
+      "https://a.khalti.com/api/v2/epayment/initiate/",
+      payload,
+      {
+        headers: {
+          Authorization: "KEY 9b72f0eaef7548d0aaef07c7d94c4b9b",
+        },
+      }
+    );
+    res.json(khaltiResponse.data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
 
 
 app.listen(PORT, () => {
